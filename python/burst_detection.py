@@ -198,11 +198,9 @@ def extract_bursts(raw_trials, TF, times, search_freqs, band_lims, fooof_thresh,
                                     len(peak_dists) > 0 and np.min(peak_dists) < np.min(trough_dists)):
                                 burst *= -1.0
                                 polarity = 1
-
-                            if (type(beh_ix) == list) and (len(beh_ix) == len(TF)):
+                            if all((beh_ix != None), (type(beh_ix) == list), (len(beh_ix) == len(TF))):
                                 bursts['trial'].append(int(beh_ix[t_idx]))
                             else:
-                                print("no beh_match list or not equivalent")
                                 bursts['trial'].append(int(t_idx))
 
                             bursts['waveform'].append(burst)
