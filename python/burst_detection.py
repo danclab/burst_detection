@@ -1,6 +1,5 @@
 import copy
 import math
-
 import numpy as np
 from mne.filter import filter_data
 from scipy.signal import hilbert, argrelextrema
