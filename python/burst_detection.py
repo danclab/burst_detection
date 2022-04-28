@@ -158,10 +158,13 @@ def extract_bursts(raw_trials, TF, times, search_freqs, band_lims, fooof_thresh,
                 # Find phase local minima (near 0)
                 zero_phase_pts = argrelextrema(instantaneous_phase.T, np.less)[0]
                 # Find local phase minima with negative deflection closest to TF peak
-                closest_pt = zero_phase_pts[np.argmin(np.abs((dur[1] - dur[0]) * .5 - zero_phase_pts))]
-                new_peak_time_idx = dur[0] + closest_pt
-                adjustment = (new_peak_time_idx - peak_time_idx) * 1 / sfreq
-
+                # If no minimum is found, the error is caught and no burst is added
+                try:
+                    closest_pt = zero_phase_pts[np.argmin(np.abs((dur[1] - dur[0]) * .5 - zero_phase_pts))]
+                    new_peak_time_idx = dur[0] + closest_pt
+                    adjustment = (new_peak_time_idx - peak_time_idx) * 1 / sfreq
+                except:
+                    adjustment = 1
                 # Keep if adjustment less than 30ms
                 if np.abs(adjustment) < .03:
 
