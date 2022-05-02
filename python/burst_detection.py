@@ -84,6 +84,11 @@ def extract_bursts(raw_trials, TF, times, search_freqs, band_lims, fooof_thresh,
         trial_TF = tr - fooof_thresh
         trial_TF[trial_TF < 0] = 0
 
+        # skip the thing if: see the 
+        if (trial_TF == 0).all():
+            print("All values equal 0 after Fooof subtraction in Trial {} ".format(t_idx))
+            continue
+        
         # TF for iterating
         trial_TF_iter = copy.copy(trial_TF)
 
