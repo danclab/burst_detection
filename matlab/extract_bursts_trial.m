@@ -32,6 +32,12 @@ function bursts=extract_bursts_trial(raw_trial, TF, times, search_freqs, band_li
     trial_TF = TF - repmat(fooof_thresh,1,size(TF,2));
     trial_TF(trial_TF < 0) = 0;
 
+    % skip the thing if: see the
+    if all(trial_TF(:)==0)
+        disp('All values equal 0 after Fooof subtraction');
+        return;
+    end
+    
     % TF for iterating
     trial_TF_iter = trial_TF;
 
