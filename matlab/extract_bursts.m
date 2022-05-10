@@ -37,7 +37,7 @@ function bursts=extract_bursts(raw_trials, TF, times, search_freqs, band_lims, f
         tr=squeeze(TF(t_idx,:,:));
 
         % Subtract 1/f threshold
-        trial_TF = tr - repmat(fooof_thresh1,size(tr,2));
+        trial_TF = tr - repmat(fooof_thresh,1,size(tr,2));
         trial_TF(trial_TF < 0) = 0;
 
         % skip the thing if: see the
